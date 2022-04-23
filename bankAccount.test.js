@@ -23,5 +23,10 @@ describe("BankAccount", () => {
         account.deposit(-350);
       }).toThrow("You cannot deposit a negative amount");
     });
+    test("throws an error if attempting to deposit a non-number", () => {
+      expect(() => {
+        account.deposit("lots of money");
+      }).toThrow("Only numerical values can be deposited");
+    });
   });
 });
