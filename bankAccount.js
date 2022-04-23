@@ -1,6 +1,9 @@
+const StatementPrinter = require("./statementPrinter");
+
 class BankAccount {
   constructor() {
     this.transactions = [];
+    this.printer = StatementPrinter;
   }
 
   balance() {
@@ -34,6 +37,10 @@ class BankAccount {
       amount: amount,
       type: "debit",
     });
+  }
+
+  printStatement() {
+    this.printer.statement(this.transactions);
   }
 
   errorHandler(transactionType, amount) {

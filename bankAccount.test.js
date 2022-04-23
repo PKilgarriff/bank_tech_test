@@ -1,4 +1,6 @@
 const BankAccount = require("./bankAccount");
+const StatementPrinter = require("./statementPrinter");
+jest.mock("./statementPrinter");
 
 describe("BankAccount", () => {
   let account;
@@ -70,6 +72,16 @@ describe("BankAccount", () => {
         amount: 156,
         type: "debit",
       });
+    });
+  });
+  describe("printStatement", () => {
+    test("it calls the statement method of StatementPrinter with the current transactions", () => {
+      account.deposit(92, new Date(Date.UTC(2022, 3, 22, 0)));
+      account.withdraw(15, new Date(Date.UTC(2022, 3, 22, 0)));
+      account.printStatement();
+      expect(StatementPrinter.statement).toHaveBeenCalledWith(
+        account.transactions
+      );
     });
   });
 });
