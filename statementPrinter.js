@@ -1,23 +1,20 @@
 class StatementPrinter {
   static statement(transactions) {
     const headerString = "date || credit || debit || balance";
-    let cumulativeBalance = 0;
-    let statementStrings = [];
-
     if (typeof transactions === "undefined" || transactions.length === 0)
       return headerString;
 
+    let cumulativeBalance = 0;
+    let statementStrings = [];
     this.#sortByDateAscending(transactions);
 
     transactions.forEach((transaction) => {
       cumulativeBalance += transaction.amount;
       transaction.balance = cumulativeBalance;
-      let transactionString = this.#generateTransactionString(transaction);
-      statementStrings.push(transactionString);
+      statementStrings.push(this.#generateTransactionString(transaction));
     });
 
-    statementStrings.reverse();
-    statementStrings.unshift(headerString);
+    statementStrings.reverse().unshift(headerString);
     return statementStrings.join("\n");
   }
 
