@@ -1,6 +1,6 @@
-const Bank = require("./bank");
+const BankAccount = require("./bankAccount");
 
-describe("Bank", () => {
+describe("BankAccount", () => {
   it("does a thing", () => {
     // assertions here
   });
