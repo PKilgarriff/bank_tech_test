@@ -7,9 +7,7 @@ class StatementPrinter {
     if (typeof transactions === "undefined" || transactions.length === 0)
       return headerString;
 
-    if (transactions.length > 1) {
-      transactions.sort((a, b) => (a.date > b.date ? 1 : -1));
-    }
+    this.sortByDateAscending(transactions);
 
     transactions.forEach((transaction) => {
       cumulativeBalance += transaction.amount;
@@ -21,6 +19,12 @@ class StatementPrinter {
     statementStrings.reverse();
     statementStrings.unshift(headerString);
     return statementStrings.join("\n");
+  }
+
+  static sortByDateAscending(transactions) {
+    if (transactions.length > 1) {
+      transactions.sort((a, b) => (a.date > b.date ? 1 : -1));
+    }
   }
 
   static dateFormatter(date) {
