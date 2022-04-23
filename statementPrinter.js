@@ -5,18 +5,10 @@ class StatementPrinter {
     if (typeof transactions === "undefined" || transactions.length === 0)
       return statementString;
     transactions.forEach((transaction) => {
-      cumulativeBalance += transaction.amount;
-      let creditDebitColumns;
-      if (transaction.type === "credit") {
-        creditDebitColumns = `${this.currencyFormatter(transaction.amount)} ||`;
-      } else {
-        creditDebitColumns = `|| ${this.currencyFormatter(transaction.amount)}`;
-      }
-      let transactionString = `\n${this.dateFormatter(
-        transaction.date
-      )} || ${creditDebitColumns} || ${this.currencyFormatter(
+      let transactionString = this.generateTransactionString(
+        transaction,
         cumulativeBalance
-      )}`;
+      );
       statementString = statementString.concat(transactionString);
     });
     return statementString;
@@ -33,6 +25,22 @@ class StatementPrinter {
         "e-" +
         decimalPlaces
     ).toFixed(decimalPlaces);
+  }
+
+  static generateTransactionString(transaction, cumulativeBalance) {
+    cumulativeBalance += transaction.amount;
+    let creditDebitColumns;
+    if (transaction.type === "credit") {
+      creditDebitColumns = `${this.currencyFormatter(transaction.amount)} ||`;
+    } else {
+      creditDebitColumns = `|| ${this.currencyFormatter(transaction.amount)}`;
+    }
+    let transactionString = `\n${this.dateFormatter(
+      transaction.date
+    )} || ${creditDebitColumns} || ${this.currencyFormatter(
+      cumulativeBalance
+    )}`;
+    return transactionString;
   }
 }
 
