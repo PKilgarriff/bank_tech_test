@@ -4,12 +4,15 @@ class BankAccount {
   }
 
   deposit(amount) {
+    this.errorHandler(amount);
+    this.balance += amount;
+  }
+
+  errorHandler(amount) {
     if (amount < 0) {
       throw "You cannot deposit a negative amount";
     } else if (typeof amount !== "number") {
       throw "Only numerical values can be deposited";
-    } else {
-      this.balance += amount;
     }
   }
 }
