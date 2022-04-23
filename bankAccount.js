@@ -18,7 +18,7 @@ class BankAccount {
   }
 
   deposit(amount, date = new Date()) {
-    this.errorHandler("deposit", amount);
+    this.#errorHandler("deposit", amount);
     this.transactions.push({
       date: date,
       amount: amount,
@@ -26,7 +26,7 @@ class BankAccount {
   }
 
   withdraw(amount, date = new Date()) {
-    this.errorHandler("withdraw", amount);
+    this.#errorHandler("withdraw", amount);
     this.transactions.push({
       date: date,
       amount: amount * -1,
@@ -37,7 +37,7 @@ class BankAccount {
     console.log(this.printer.statement(this.transactions));
   }
 
-  errorHandler(transactionType, amount) {
+  #errorHandler(transactionType, amount) {
     if (amount < 0) {
       throw `You cannot ${transactionType} a negative amount`;
     } else if (typeof amount !== "number") {

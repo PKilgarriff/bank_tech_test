@@ -7,12 +7,12 @@ class StatementPrinter {
     if (typeof transactions === "undefined" || transactions.length === 0)
       return headerString;
 
-    this.sortByDateAscending(transactions);
+    this.#sortByDateAscending(transactions);
 
     transactions.forEach((transaction) => {
       cumulativeBalance += transaction.amount;
       transaction.balance = cumulativeBalance;
-      let transactionString = this.generateTransactionString(transaction);
+      let transactionString = this.#generateTransactionString(transaction);
       statementStrings.push(transactionString);
     });
 
@@ -21,15 +21,15 @@ class StatementPrinter {
     return statementStrings.join("\n");
   }
 
-  static sortByDateAscending(transactions) {
+  static #sortByDateAscending(transactions) {
     transactions.sort((a, b) => (a.date > b.date ? 1 : -1));
   }
 
-  static dateFormatter(date) {
+  static #dateFormatter(date) {
     return date.toLocaleString().split(",")[0];
   }
 
-  static currencyFormatter(amount) {
+  static #currencyFormatter(amount) {
     const decimalPlaces = 2;
     return Number(
       Math.round(parseFloat(amount + "e" + decimalPlaces)) +
@@ -38,11 +38,11 @@ class StatementPrinter {
     ).toFixed(decimalPlaces);
   }
 
-  static generateTransactionString(transaction) {
-    let amount = `${this.currencyFormatter(Math.abs(transaction.amount))}`;
+  static #generateTransactionString(transaction) {
+    let amount = `${this.#currencyFormatter(Math.abs(transaction.amount))}`;
     amount = transaction.amount > 0 ? amount + " ||" : "|| " + amount;
-    let date = `${this.dateFormatter(transaction.date)}`;
-    let balance = `${this.currencyFormatter(transaction.balance)}`;
+    let date = `${this.#dateFormatter(transaction.date)}`;
+    let balance = `${this.#currencyFormatter(transaction.balance)}`;
     return `${date} || ${amount} || ${balance}`;
   }
 }
