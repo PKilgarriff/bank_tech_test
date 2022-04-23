@@ -133,6 +133,13 @@ If you wish to see the verbose output from Jest, run `jest --verbose`, or you ca
     - flips months and days
     - local tests run with en-gb -> remote tests using en-us
 - dateFormatter updated to no longer use toLocaleString()
+- Readme pushed to GitHub for code review
+
+## Next Steps
+
+- clarify with client how they would want negative balances handled
+- revisit possibility of a Transaction class to encapsulate further
+- redesign bankAccount.test.js to test behaviour instead of state _without_ losing test specificity
 
 # Appendix
 
