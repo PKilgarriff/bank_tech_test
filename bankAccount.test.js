@@ -69,7 +69,7 @@ describe("BankAccount", () => {
       account.withdraw(156, new Date(Date.UTC(2022, 4, 14, 0)));
       expect(account.transactions).toContainEqual({
         date: new Date("2022-05-14T00:00:00.000Z"),
-        amount: 156,
+        amount: -156,
         type: "debit",
       });
     });

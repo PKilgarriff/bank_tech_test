@@ -1,17 +1,26 @@
 class StatementPrinter {
   static statement(transactions) {
+    const headerString = "date || credit || debit || balance";
     let cumulativeBalance = 0;
-    let statementString = "date || credit || debit || balance";
+    let statementStrings = [];
+
     if (typeof transactions === "undefined" || transactions.length === 0)
-      return statementString;
+      return headerString;
+
+    if (transactions.length > 1) {
+      transactions.sort((a, b) => (a.date > b.date ? 1 : -1));
+    }
+
     transactions.forEach((transaction) => {
-      let transactionString = this.generateTransactionString(
-        transaction,
-        cumulativeBalance
-      );
-      statementString = statementString.concat(transactionString);
+      cumulativeBalance += transaction.amount;
+      transaction.balance = cumulativeBalance;
+      let transactionString = this.generateTransactionString(transaction);
+      statementStrings.push(transactionString);
     });
-    return statementString;
+
+    statementStrings.reverse();
+    statementStrings.unshift(headerString);
+    return statementStrings.join("\n");
   }
 
   static dateFormatter(date) {
@@ -27,20 +36,12 @@ class StatementPrinter {
     ).toFixed(decimalPlaces);
   }
 
-  static generateTransactionString(transaction, cumulativeBalance) {
-    cumulativeBalance += transaction.amount;
-    let creditDebitColumns;
-    if (transaction.type === "credit") {
-      creditDebitColumns = `${this.currencyFormatter(transaction.amount)} ||`;
-    } else {
-      creditDebitColumns = `|| ${this.currencyFormatter(transaction.amount)}`;
-    }
-    let transactionString = `\n${this.dateFormatter(
-      transaction.date
-    )} || ${creditDebitColumns} || ${this.currencyFormatter(
-      cumulativeBalance
-    )}`;
-    return transactionString;
+  static generateTransactionString(transaction) {
+    let amount = `${this.currencyFormatter(Math.abs(transaction.amount))}`;
+    amount = transaction.amount > 0 ? amount + " ||" : "|| " + amount;
+    let date = `${this.dateFormatter(transaction.date)}`;
+    let balance = `${this.currencyFormatter(transaction.balance)}`;
+    return `${date} || ${amount} || ${balance}`;
   }
 }
 

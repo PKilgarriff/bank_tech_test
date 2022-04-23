@@ -7,11 +7,7 @@ class BankAccount {
   }
 
   balance() {
-    const amounts = this.transactions.map((transaction) => {
-      return transaction.type === "credit"
-        ? transaction.amount
-        : -transaction.amount;
-    });
+    const amounts = this.transactions.map((transaction) => transaction.amount);
     const total = amounts.reduce(
       (previous, current) => {
         return previous + current;
@@ -34,13 +30,13 @@ class BankAccount {
     this.errorHandler("withdraw", amount);
     this.transactions.push({
       date: date,
-      amount: amount,
+      amount: amount * -1,
       type: "debit",
     });
   }
 
   printStatement() {
-    this.printer.statement(this.transactions);
+    console.log(this.printer.statement(this.transactions));
   }
 
   errorHandler(transactionType, amount) {

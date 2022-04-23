@@ -50,3 +50,8 @@ Moving onto Statement Printer class
 - needs list of transactions from BankAccount
 - needs to return headers
 - needs to return a formatted string of each transaction
+
+Saving the transactions as either credit or debit is making things untidy
+
+- change of approach to use positive values as credits and negative values as debits
+- should make calculating balance more straightforward

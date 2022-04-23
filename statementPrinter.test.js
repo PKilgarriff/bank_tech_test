@@ -22,12 +22,12 @@ describe("StatementPrinter", () => {
     let transactions = [
       {
         date: new Date("2022-05-14T00:00:00.000Z"),
-        amount: 15,
+        amount: 15 * -1,
         type: "debit",
       },
     ];
     expect(StatementPrinter.statement(transactions)).toEqual(
-      "date || credit || debit || balance\n14/05/2022 || || 15.00 || 15.00"
+      "date || credit || debit || balance\n14/05/2022 || || 15.00 || -15.00"
     );
   });
 });
