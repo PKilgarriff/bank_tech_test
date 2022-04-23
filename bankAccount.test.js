@@ -63,5 +63,13 @@ describe("BankAccount", () => {
         type: "credit",
       });
     });
+    test("after a withdrawal, there is a record of the transaction stored", () => {
+      account.withdraw(156, new Date(Date.UTC(2022, 3, 22, 0)));
+      expect(account.transactions).toContainEqual({
+        date: new Date("2022-04-22T00:00:00.000Z"),
+        amount: 156,
+        type: "debit",
+      });
+    });
   });
 });

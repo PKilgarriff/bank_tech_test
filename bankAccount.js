@@ -27,10 +27,10 @@ class BankAccount {
     });
   }
 
-  withdraw(amount) {
+  withdraw(amount, date = new Date()) {
     this.errorHandler("withdraw", amount);
     this.transactions.push({
-      date: "Today",
+      date: date,
       amount: amount,
       type: "debit",
     });
