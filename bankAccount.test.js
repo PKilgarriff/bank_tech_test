@@ -9,6 +9,9 @@ describe("BankAccount", () => {
   test("has an initial balance of zero", () => {
     expect(account.balance).toEqual(0);
   });
+  test("starts with no transaction history", () => {
+    expect(account.transactions).toEqual([]);
+  });
   describe("deposit", () => {
     test("after depositing 1000, the balance is 1000", () => {
       account.deposit(1000);
@@ -49,6 +52,16 @@ describe("BankAccount", () => {
       expect(() => {
         account.withdraw("all the money you have");
       }).toThrow("Only numerical values can be withdrawn");
+    });
+  });
+  describe("transactions", () => {
+    test("after a deposit, there is a record of the transaction stored", () => {
+      account.deposit(92);
+      expect(account.transactions).toContainEqual({
+        date: "Today",
+        amount: 92,
+        type: "credit",
+      });
     });
   });
 });

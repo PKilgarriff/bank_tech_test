@@ -1,10 +1,16 @@
 class BankAccount {
   constructor() {
     this.balance = 0;
+    this.transactions = [];
   }
 
   deposit(amount) {
     this.errorHandler("deposit", amount);
+    this.transactions.push({
+      date: "Today",
+      amount: amount,
+      type: "credit",
+    });
     this.balance += amount;
   }
 
