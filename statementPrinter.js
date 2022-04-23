@@ -22,9 +22,7 @@ class StatementPrinter {
   }
 
   static sortByDateAscending(transactions) {
-    if (transactions.length > 1) {
-      transactions.sort((a, b) => (a.date > b.date ? 1 : -1));
-    }
+    transactions.sort((a, b) => (a.date > b.date ? 1 : -1));
   }
 
   static dateFormatter(date) {

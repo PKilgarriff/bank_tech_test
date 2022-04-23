@@ -7,14 +7,14 @@ class BankAccount {
   }
 
   balance() {
-    const amounts = this.transactions.map((transaction) => transaction.amount);
-    const total = amounts.reduce(
-      (previous, current) => {
-        return previous + current;
-      },
-      0 //Initial value
-    );
-    return total;
+    return this.transactions
+      .map((transaction) => transaction.amount)
+      .reduce(
+        (previous, current) => {
+          return previous + current;
+        },
+        0 //Initial value
+      );
   }
 
   deposit(amount, date = new Date()) {
@@ -22,7 +22,6 @@ class BankAccount {
     this.transactions.push({
       date: date,
       amount: amount,
-      type: "credit",
     });
   }
 
@@ -31,7 +30,6 @@ class BankAccount {
     this.transactions.push({
       date: date,
       amount: amount * -1,
-      type: "debit",
     });
   }
 
@@ -43,9 +41,7 @@ class BankAccount {
     if (amount < 0) {
       throw `You cannot ${transactionType} a negative amount`;
     } else if (typeof amount !== "number") {
-      let pastTenseTransaction =
-        transactionType === "deposit" ? "deposited" : "withdrawn";
-      throw `Only numerical values can be ${pastTenseTransaction}`;
+      throw `You cannot ${transactionType} a non-numerical amount`;
     }
   }
 }

@@ -31,7 +31,7 @@ describe("BankAccount", () => {
     test("throws an error if attempting to deposit a non-number", () => {
       expect(() => {
         account.deposit("lots of money");
-      }).toThrow("Only numerical values can be deposited");
+      }).toThrow("You cannot deposit a non-numerical amount");
     });
   });
   describe("withdraw", () => {
@@ -53,7 +53,7 @@ describe("BankAccount", () => {
     test("throws an error if attempting to withdraw a non-number", () => {
       expect(() => {
         account.withdraw("all the money you have");
-      }).toThrow("Only numerical values can be withdrawn");
+      }).toThrow("You cannot withdraw a non-numerical amount");
     });
   });
   describe("transactions", () => {
@@ -62,7 +62,6 @@ describe("BankAccount", () => {
       expect(account.transactions).toContainEqual({
         date: new Date("2022-04-22T00:00:00.000Z"),
         amount: 92,
-        type: "credit",
       });
     });
     test("after a withdrawal, there is a record of the transaction stored", () => {
@@ -70,7 +69,6 @@ describe("BankAccount", () => {
       expect(account.transactions).toContainEqual({
         date: new Date("2022-05-14T00:00:00.000Z"),
         amount: -156,
-        type: "debit",
       });
     });
   });
