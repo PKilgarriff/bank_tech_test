@@ -44,3 +44,9 @@ Possible solutions:
 - there is a certain threshold of negative balance (like an overdraft)
 
 If transactions are being added and stored, balance should now be a method that calculates based on them rather than a property
+
+Moving onto Statement Printer class
+
+- needs list of transactions from BankAccount
+- needs to return headers
+- needs to return a formatted string of each transaction

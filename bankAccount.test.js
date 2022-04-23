@@ -2,10 +2,10 @@ const BankAccount = require("./bankAccount");
 
 describe("BankAccount", () => {
   let account;
-
   beforeEach(() => {
     account = new BankAccount();
   });
+
   test("has an initial balance of zero", () => {
     expect(account.balance()).toEqual(0);
   });
@@ -64,9 +64,9 @@ describe("BankAccount", () => {
       });
     });
     test("after a withdrawal, there is a record of the transaction stored", () => {
-      account.withdraw(156, new Date(Date.UTC(2022, 3, 22, 0)));
+      account.withdraw(156, new Date(Date.UTC(2022, 4, 14, 0)));
       expect(account.transactions).toContainEqual({
-        date: new Date("2022-04-22T00:00:00.000Z"),
+        date: new Date("2022-05-14T00:00:00.000Z"),
         amount: 156,
         type: "debit",
       });
