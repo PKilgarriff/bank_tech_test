@@ -66,8 +66,17 @@ A set of acceptance criteria have been provided, and these are demonstrated in o
 - Continued refactoring the code to remove unnecessary variables
   - selected variables left in to aid the readability of the code
   - methods extracted to continue with SRP
+  - methods that could be made private, made private
+    - unsure whether the transactions property of BankAccount should be private
+      - pro: stops it being accessed outside
+      - con: unavailable to unit testing BankAccount, alternatives could give false positives
 - Further feature tests added
   - exposed blind spot in Jest mocking
     - console.log spy was passing subsequent tests due to using .toHaveBeenCalled() instead of .toHaveBeenLAstCalled()
 - The existence of Continuous Integration remembered by me at this point
   - config files for Travis and GitHub Actions added
+  - Travis CI currently blocked, so focused on GitHub actions
+  - CI exposed issue with toLocaleString() used by StatementPrinter
+    - flips months and days
+    - local tests run with en-gb -> remote tests using en-us
+- dateFormatter updated to no longer use toLocaleString()

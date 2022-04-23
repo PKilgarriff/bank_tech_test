@@ -23,7 +23,10 @@ class StatementPrinter {
   }
 
   static #dateFormatter(date) {
-    return date.toLocaleString().split(",")[0];
+    let day = `${date.getDate()}`.padStart(2, "0");
+    let month = `${date.getMonth() + 1}`.padStart(2, "0");
+    let year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   }
 
   static #currencyFormatter(amount) {
