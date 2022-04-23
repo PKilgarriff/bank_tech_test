@@ -4,18 +4,18 @@ class BankAccount {
   }
 
   balance() {
-    if (this.transactions.length === 0) {
-      return 0;
-    }
-    let runningTotal = 0;
-    this.transactions.forEach((transaction) => {
-      if (transaction.type === "credit") {
-        runningTotal += transaction.amount;
-      } else {
-        runningTotal -= transaction.amount;
-      }
+    const amounts = this.transactions.map((transaction) => {
+      return transaction.type === "credit"
+        ? transaction.amount
+        : -transaction.amount;
     });
-    return runningTotal;
+    const total = amounts.reduce(
+      (previous, current) => {
+        return previous + current;
+      },
+      0 //Initial value
+    );
+    return total;
   }
 
   deposit(amount) {
