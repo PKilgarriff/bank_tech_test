@@ -35,5 +35,20 @@ describe("BankAccount", () => {
       account.withdraw(500);
       expect(account.balance).toEqual(500);
     });
+    test("after depositing 750, then withdrawing 600, the balance is 150", () => {
+      account.deposit(750);
+      account.withdraw(600);
+      expect(account.balance).toEqual(150);
+    });
+    test("throws an error if attempting to withdraw a negative amount", () => {
+      expect(() => {
+        account.withdraw(-350);
+      }).toThrow("You cannot withdraw a negative amount");
+    });
+    test("throws an error if attempting to withdraw a non-number", () => {
+      expect(() => {
+        account.withdraw("all the money you have");
+      }).toThrow("Only numerical values can be withdrawn");
+    });
   });
 });

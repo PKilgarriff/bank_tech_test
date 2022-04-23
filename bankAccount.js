@@ -4,19 +4,22 @@ class BankAccount {
   }
 
   deposit(amount) {
-    this.errorHandler(amount);
+    this.errorHandler("deposit", amount);
     this.balance += amount;
   }
 
   withdraw(amount) {
+    this.errorHandler("withdraw", amount);
     this.balance -= amount;
   }
 
-  errorHandler(amount) {
+  errorHandler(transactionType, amount) {
     if (amount < 0) {
-      throw "You cannot deposit a negative amount";
+      throw `You cannot ${transactionType} a negative amount`;
     } else if (typeof amount !== "number") {
-      throw "Only numerical values can be deposited";
+      let pastTenseTransaction =
+        transactionType === "deposit" ? "deposited" : "withdrawn";
+      throw `Only numerical values can be ${pastTenseTransaction}`;
     }
   }
 }
