@@ -5,9 +5,10 @@ describe("BankAccount", () => {
 
   beforeEach(() => {
     account = new BankAccount();
+    console.log(account.balance());
   });
   test("has an initial balance of zero", () => {
-    expect(account.balance).toEqual(0);
+    expect(account.balance()).toEqual(0);
   });
   test("starts with no transaction history", () => {
     expect(account.transactions).toEqual([]);
@@ -15,11 +16,11 @@ describe("BankAccount", () => {
   describe("deposit", () => {
     test("after depositing 1000, the balance is 1000", () => {
       account.deposit(1000);
-      expect(account.balance).toEqual(1000);
+      expect(account.balance()).toEqual(1000);
     });
     test("after depositing 350, the balance is 350", () => {
       account.deposit(350);
-      expect(account.balance).toEqual(350);
+      expect(account.balance()).toEqual(350);
     });
     test("throws an error if attempting to deposit a negative amount", () => {
       expect(() => {
@@ -36,12 +37,12 @@ describe("BankAccount", () => {
     test("after depositing 1000, then withdrawing 500, the balance is 500", () => {
       account.deposit(1000);
       account.withdraw(500);
-      expect(account.balance).toEqual(500);
+      expect(account.balance()).toEqual(500);
     });
     test("after depositing 750, then withdrawing 600, the balance is 150", () => {
       account.deposit(750);
       account.withdraw(600);
-      expect(account.balance).toEqual(150);
+      expect(account.balance()).toEqual(150);
     });
     test("throws an error if attempting to withdraw a negative amount", () => {
       expect(() => {

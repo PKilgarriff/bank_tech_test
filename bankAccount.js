@@ -1,7 +1,21 @@
 class BankAccount {
   constructor() {
-    this.balance = 0;
     this.transactions = [];
+  }
+
+  balance() {
+    if (this.transactions.length === 0) {
+      return 0;
+    }
+    let runningTotal = 0;
+    this.transactions.forEach((transaction) => {
+      if (transaction.type === "credit") {
+        runningTotal += transaction.amount;
+      } else {
+        runningTotal -= transaction.amount;
+      }
+    });
+    return runningTotal;
   }
 
   deposit(amount) {
@@ -11,12 +25,15 @@ class BankAccount {
       amount: amount,
       type: "credit",
     });
-    this.balance += amount;
   }
 
   withdraw(amount) {
     this.errorHandler("withdraw", amount);
-    this.balance -= amount;
+    this.transactions.push({
+      date: "Today",
+      amount: amount,
+      type: "debit",
+    });
   }
 
   errorHandler(transactionType, amount) {
