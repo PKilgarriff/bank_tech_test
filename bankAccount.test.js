@@ -29,4 +29,11 @@ describe("BankAccount", () => {
       }).toThrow("Only numerical values can be deposited");
     });
   });
+  describe("withdraw", () => {
+    test("after depositing 1000, then withdrawing 500, the balance is 500", () => {
+      account.deposit(1000);
+      account.withdraw(500);
+      expect(account.balance).toEqual(500);
+    });
+  });
 });

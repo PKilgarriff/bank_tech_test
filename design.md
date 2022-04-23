@@ -30,3 +30,10 @@ printStatement() would be more descriptive than just balance()
 Would Statement Printer also be pulled out into its own class as well?
 
 - SRP
+
+There is no information given in the brief on whether the client can go into negative balance -> if this wasn't a practice tech test - I would ask the client to confirm their desired handling of this.
+Possible solutions:
+
+- account can go into negative balance
+- withdrawals that would put balance into negative are blocked
+- there is a certain threshold of negative balance (like an overdraft)

@@ -8,6 +8,10 @@ class BankAccount {
     this.balance += amount;
   }
 
+  withdraw(amount) {
+    this.balance -= amount;
+  }
+
   errorHandler(amount) {
     if (amount < 0) {
       throw "You cannot deposit a negative amount";
