@@ -1,4 +1,3 @@
-const { TestWatcher } = require("jest");
 const StatementPrinter = require("./statementPrinter");
 
 describe("StatementPrinter", () => {
