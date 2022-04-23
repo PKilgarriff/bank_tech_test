@@ -5,7 +5,6 @@ describe("BankAccount", () => {
 
   beforeEach(() => {
     account = new BankAccount();
-    console.log(account.balance());
   });
   test("has an initial balance of zero", () => {
     expect(account.balance()).toEqual(0);
@@ -57,9 +56,9 @@ describe("BankAccount", () => {
   });
   describe("transactions", () => {
     test("after a deposit, there is a record of the transaction stored", () => {
-      account.deposit(92);
+      account.deposit(92, new Date(Date.UTC(2022, 3, 22, 0)));
       expect(account.transactions).toContainEqual({
-        date: "Today",
+        date: new Date("2022-04-22T00:00:00.000Z"),
         amount: 92,
         type: "credit",
       });

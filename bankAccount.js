@@ -18,10 +18,10 @@ class BankAccount {
     return total;
   }
 
-  deposit(amount) {
+  deposit(amount, date = new Date()) {
     this.errorHandler("deposit", amount);
     this.transactions.push({
-      date: "Today",
+      date: date,
       amount: amount,
       type: "credit",
     });
