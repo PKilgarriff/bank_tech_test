@@ -1,6 +1,7 @@
 class StatementPrinter {
   static statement(transactions) {
-    return "date || credit || debit || balance";
+    const statementString = "date || credit || debit || balance";
+    return statementString;
   }
 }
 
