@@ -26,3 +26,7 @@ client1.printStatement();
 printStatement() would be more descriptive than just balance()
 
 - balance will also be a property, but only contain the current balance
+
+Would Statement Printer also be pulled out into its own class as well?
+
+- SRP
