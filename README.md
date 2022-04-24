@@ -36,7 +36,7 @@ git clone https://github.com/PKilgarriff/bank_tech_test
 
 ### Install Dependencies
 
-> These steps assume you have Node.js running on your system.
+> These steps assume you have [Node.js](https://nodejs.org/en/) running on your system.
 
 ```zsh
 cd bank_tech_test
@@ -56,6 +56,8 @@ const client1 = new BankAccount();
 client1.deposit(480);
 client1.deposit(935);
 client1.withdraw(650);
+client1.balance();
+    765
 client1.printStatement();
     date || credit || debit || balance
     23/04/2022 || || 650.00 || 765.00
@@ -86,12 +88,14 @@ If you wish to see the verbose output from Jest, run `jest --verbose`, or you ca
 
 ## Approach
 
-The program is made up of two classes:
+The program is made up of four classes:
 
 - a BankAccount class that handles the deposit and withdrawal while maintaining the balance
   - instances are created for separate accounts
-- a StatementPrinter class that handles the formatting of strings for the desired output to terminal
+- a Transaction class that stores the record of each transaction
+- a StatementPrinter class that handles the generation of a bank statement for output to terminal
   - the class methods are available for use as no data needs to be stored, and so no instances are required
+- a StatementPrinterHelper class that provides static methods for formatting strings into the required output
 
 This structure is to adhere to separation of concerns.
 
