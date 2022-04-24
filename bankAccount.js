@@ -1,9 +1,11 @@
 const StatementPrinter = require("./statementPrinter");
+const Transaction = require("./transaction");
 
 class BankAccount {
   #transactions;
   constructor() {
     this.#transactions = [];
+    this.transactionClass = Transaction;
     this.printer = StatementPrinter;
   }
 
