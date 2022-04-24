@@ -1,25 +1,26 @@
 const StatementPrinter = require("./statementPrinter");
 
 class BankAccount {
+  #transactions;
   constructor() {
-    this.transactions = [];
+    this.#transactions = [];
     this.printer = StatementPrinter;
   }
 
   balance() {
-    return this.transactions
+    return this.#transactions
       .map((transaction) => transaction.amount)
       .reduce(
         (previous, current) => {
           return previous + current;
         },
-        0 //Initial value
+        0 // Initial value
       );
   }
 
   deposit(amount, date = new Date()) {
     this.#errorHandler("deposit", amount);
-    this.transactions.push({
+    this.#transactions.push({
       date: date,
       amount: amount,
     });
@@ -27,14 +28,14 @@ class BankAccount {
 
   withdraw(amount, date = new Date()) {
     this.#errorHandler("withdraw", amount);
-    this.transactions.push({
+    this.#transactions.push({
       date: date,
       amount: amount * -1,
     });
   }
 
   printStatement() {
-    console.log(this.printer.statement(this.transactions));
+    console.log(this.printer.statement(this.#transactions));
   }
 
   #errorHandler(transactionType, amount) {

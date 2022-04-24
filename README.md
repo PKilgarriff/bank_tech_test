@@ -106,7 +106,7 @@ This structure is to adhere to separation of concerns.
 - Brought in continuous integration late in the process
 - Tidied up code for review
 - Completed Self-assessment form
-- Brought in changes that resulted
+- Brought in changes that resulted:
   - further encapsulation
   - test behaviour over state
 
@@ -149,6 +149,11 @@ This structure is to adhere to separation of concerns.
     - local tests run with en-gb -> remote tests using en-us
 - dateFormatter updated to no longer use toLocaleString()
 - Readme pushed to GitHub for code review
+- Self-assessment form carried out:
+  - highlighted possible areas for further encapsulation
+  - made me return to the consideration of a Transaction class
+  - retry testing approach (Behaviour over State)
+  - mock Date objects
 
 ## Next Steps
 
