@@ -154,6 +154,7 @@ This structure is to adhere to separation of concerns.
   - made me return to the consideration of a Transaction class
   - retry testing approach (Behaviour over State)
   - mock Date objects
+- Date objects mocked for new Transaction class and Feature tests
 
 ## Next Steps
 

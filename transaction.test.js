@@ -1,13 +1,16 @@
 const Transaction = require("./transaction");
+const dateMock = require("jest-date-mock");
 
 describe("Transaction", () => {
   let transaction;
 
   beforeAll(() => {
-    jest
-      .spyOn(global, "Date")
-      .mockImplementationOnce(() => new Date("2022-01-17T11:00:00.000Z"));
+    dateMock.advanceTo(new Date(2022, 0, 17, 0, 0, 0));
     transaction = new Transaction(300);
+  });
+
+  afterAll(() => {
+    dateMock.clear();
   });
 
   test("stores an amount", () => {
@@ -15,7 +18,7 @@ describe("Transaction", () => {
   });
   test("stores a date", () => {
     expect(transaction.date).toStrictEqual(
-      new Date("2022-01-17T11:00:00.000Z")
+      new Date("2022-01-17T00:00:00.000Z")
     );
   });
   test("date can be overridden at construction", () => {
@@ -35,7 +38,7 @@ describe("Transaction", () => {
     test("for date", () => {
       transaction.date = new Date();
       expect(transaction.date).toStrictEqual(
-        new Date("2022-01-17T11:00:00.000Z")
+        new Date("2022-01-17T00:00:00.000Z")
       );
     });
   });
