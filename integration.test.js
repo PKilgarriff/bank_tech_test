@@ -1,13 +1,25 @@
 const BankAccount = require("./bankAccount");
+const dateMock = require("jest-date-mock");
 
 describe("Integration Test for BankAccount", () => {
-  let consoleSpy = jest.spyOn(console, "log");
+  let consoleSpy;
+
+  beforeEach(() => {
+    consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    dateMock.clear();
+  });
 
   test("It fulfills the example acceptance criteria", () => {
     const client1 = new BankAccount();
-    client1.deposit(1000, new Date(Date.UTC(2023, 0, 10, 0)));
-    client1.deposit(2000, new Date(Date.UTC(2023, 0, 13, 0)));
-    client1.withdraw(500, new Date(Date.UTC(2023, 0, 14, 0)));
+    dateMock.advanceTo(new Date(2023, 0, 10, 0, 0, 0));
+    client1.deposit(1000);
+    dateMock.advanceTo(new Date(2023, 0, 13, 0, 0, 0));
+    client1.deposit(2000);
+    dateMock.advanceTo(new Date(2023, 0, 14, 0, 0, 0));
+    client1.withdraw(500);
     client1.printStatement();
     expect(consoleSpy).toHaveBeenLastCalledWith(
       "date || credit || debit || balance\n" +
@@ -18,9 +30,12 @@ describe("Integration Test for BankAccount", () => {
   });
   test("It handles transactions made out of order", () => {
     const client1 = new BankAccount();
-    client1.deposit(1800, new Date(Date.UTC(2023, 0, 5, 0)));
-    client1.withdraw(1600, new Date(Date.UTC(2023, 2, 13, 0)));
-    client1.deposit(500, new Date(Date.UTC(2023, 1, 14, 0)));
+    dateMock.advanceTo(new Date(2023, 0, 5, 0, 0, 0));
+    client1.deposit(1800);
+    dateMock.advanceTo(new Date(2023, 2, 13, 0, 0, 0));
+    client1.withdraw(1600);
+    dateMock.advanceTo(new Date(2023, 1, 14, 0, 0, 0));
+    client1.deposit(500);
     client1.printStatement();
     expect(consoleSpy).toHaveBeenLastCalledWith(
       "date || credit || debit || balance\n" +

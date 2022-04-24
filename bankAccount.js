@@ -20,20 +20,14 @@ class BankAccount {
       );
   }
 
-  deposit(amount, date = new Date()) {
+  deposit(amount) {
     this.#errorHandler("deposit", amount);
-    this.#transactions.push({
-      date: date,
-      amount: amount,
-    });
+    this.#transactions.push(new Transaction(amount));
   }
 
-  withdraw(amount, date = new Date()) {
+  withdraw(amount) {
     this.#errorHandler("withdraw", amount);
-    this.#transactions.push({
-      date: date,
-      amount: amount * -1,
-    });
+    this.#transactions.push(new Transaction(amount * -1));
   }
 
   printStatement() {

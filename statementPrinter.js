@@ -11,9 +11,13 @@ class StatementPrinter {
     helper.sortByDateAscending(transactions);
 
     transactions.forEach((transaction) => {
+      let localTransaction = {
+        date: transaction.date,
+        amount: transaction.amount,
+      };
       cumulativeBalance += transaction.amount;
-      transaction.balance = cumulativeBalance;
-      statementStrings.push(this.#generateTransactionString(transaction));
+      localTransaction.balance = cumulativeBalance;
+      statementStrings.push(this.#generateTransactionString(localTransaction));
     });
 
     statementStrings.reverse().unshift(headerString);

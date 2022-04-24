@@ -68,8 +68,8 @@ describe("BankAccount", () => {
   });
   describe.skip("printStatement", () => {
     test("it calls the statement method of StatementPrinter with the current transactions", () => {
-      account.deposit(92, new Date(Date.UTC(2022, 3, 22, 0)));
-      account.withdraw(15, new Date(Date.UTC(2022, 3, 22, 0)));
+      account.deposit(92);
+      account.withdraw(15);
       account.printStatement();
       expect(StatementPrinter.statement).toHaveBeenCalledWith(
         account.transactions
