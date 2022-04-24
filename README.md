@@ -47,6 +47,8 @@ npm install
 
 This program is run within node as a REPL.
 
+Only the bankAccount.js file needs to be loaded in node as it requires the statementPrinter.js file inside it.
+
 ```
 node
 .load ./bankAccount.js
@@ -84,6 +86,15 @@ If you wish to see the verbose output from Jest, run `jest --verbose`, or you ca
 
 ## Approach
 
+The program is made up of two classes:
+
+- a BankAccount class that handles the deposit and withdrawal while maintaining the balance
+  - instances are created for separate accounts
+- a StatementPrinter class that handles the formatting of strings for the desired output to terminal
+  - the class methods are available for use as no data needs to be stored, and so no instances are required
+
+This structure is to adhere to separation of concerns.
+
 ### TL;DR
 
 - Wrote a design document
@@ -94,6 +105,10 @@ If you wish to see the verbose output from Jest, run `jest --verbose`, or you ca
 - Wrote feature tests to demonstrate overall function
 - Brought in continuous integration late in the process
 - Tidied up code for review
+- Completed Self-assessment form
+- Brought in changes that resulted
+  - further encapsulation
+  - test behaviour over state
 
 ### Full Approach
 
