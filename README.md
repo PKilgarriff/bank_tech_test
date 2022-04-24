@@ -154,64 +154,74 @@ This structure is to adhere to separation of concerns.
   - made me return to the consideration of a Transaction class
   - retry testing approach (Behaviour over State)
   - mock Date objects
+  - made transactions property of BankAccount private
 - Date objects mocked for new Transaction class and Feature tests
 
 ## Next Steps
 
 - clarify with client how they would want negative balances handled
-- revisit possibility of a Transaction class to encapsulate further
-- redesign bankAccount.test.js to test behaviour instead of state _without_ losing test specificity
+- ~revisit possibility of a Transaction class to encapsulate further~
+- ~redesign bankAccount.test.js to test behaviour instead of state _without_ losing test specificity~
 
 # Appendix
 
 ## Verbose Test Output
 
 ```
-PASS  ./integration.test.js
-  Integration Test for BankAccount
-    ✓ It fulfills the example acceptance criteria (23 ms)
-    ✓ It handles transactions made out of order (2 ms)
-
 PASS  ./bankAccount.test.js
   BankAccount
-    ✓ has an initial balance of zero (2 ms)
-    ✓ starts with no transaction history (1 ms)
+    ✓ has an initial balance of zero (3 ms)
     deposit
-      ✓ after depositing 1000, the balance is 1000
-      ✓ after depositing 350, the balance is 350
+      ✓ after depositing 1000, the balance is 1000 (1 ms)
+      ✓ after depositing 350, the balance is 350 (1 ms)
+      ✓ after depositing 175, then 804, the balance is 979 (1 ms)
+      ✓ can handle floats (1 ms)
       ✓ throws an error if attempting to deposit a negative amount (1 ms)
       ✓ throws an error if attempting to deposit a non-number (1 ms)
     withdraw
-      ✓ after depositing 1000, then withdrawing 500, the balance is 500 (1 ms)
-      ✓ after depositing 750, then withdrawing 600, the balance is 150
+      ✓ after depositing 1000, then withdrawing 500, the balance is 500
+      ✓ after depositing 750, then withdrawing 600, the balance is 150 (1 ms)
+      ✓ you can go into negative balance while withdrawing (1 ms)
       ✓ throws an error if attempting to withdraw a negative amount (1 ms)
-      ✓ throws an error if attempting to withdraw a non-number
-    transactions
-      ✓ after a deposit, there is a record of the transaction stored
-      ✓ after a withdrawal, there is a record of the transaction stored (1 ms)
+      ✓ throws an error if attempting to withdraw a non-number (1 ms)
     printStatement
-      ✓ it calls the statement method of StatementPrinter with the current transactions (5 ms)
+      ✓ it calls the statement method of StatementPrinter with the current transactions (2 ms)
 
- PASS  ./statementPrinter.test.js
+PASS  ./integration.test.js
+  Integration Test for BankAccount
+    ✓ It fulfills the example acceptance criteria (4 ms)
+    ✓ It handles transactions made out of order
+
+PASS  ./statementPrinter.test.js
   StatementPrinter
-    ✓ it prints headers when given no transactions (1 ms)
+    ✓ it prints headers when given no transactions (2 ms)
     ✓ correct statement when given an array of one credit transaction (1 ms)
     ✓ correct statement when given an array of one debit transaction
-    ✓ correct statement when given an array of multiple transactions
-    ✓ correct statement when given an array of incorrectly ordered transactions (1 ms)
+    ✓ correct statement when given an array of multiple transactions (1 ms)
+    ✓ correct statement when given an array of incorrectly ordered transactions
 
--------------------
-Test Suites: 3 passed, 3 total
-Tests:       20 passed, 20 total
+PASS  ./transaction.test.js
+  Transaction
+    ✓ stores an amount (1 ms)
+    ✓ stores a date
+    ✓ date can be overridden at construction (1 ms)
+    once constructed, the properties are frozen
+      ✓ for amount
+      ✓ for date
+
+Test Suites: 4 passed, 4 total
+Tests:       25 passed, 25 total
 Snapshots:   0 total
-Time:        0.828 s, estimated 1 s
+Time:        0.571 s, estimated 1 s
 Ran all test suites.
 ```
 
 ### Coverage
 
-| File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s |
-| ------------------- | ------- | -------- | ------- | ------- | ----------------- |
-| All files           | 100     | 100      | 100     | 100     |
-| bankAccount.js      | 100     | 100      | 100     | 100     |
-| statementPrinter.js | 100     | 100      | 100     | 100     |
+| File                      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s |
+| ------------------------- | ------- | -------- | ------- | ------- | ----------------- |
+| All files                 | 100     | 100      | 100     | 100     |
+| bankAccount.js            | 100     | 100      | 100     | 100     |
+| statementPrinter.js       | 100     | 100      | 100     | 100     |
+| statementPrinterHelper.js | 100     | 100      | 100     | 100     |
+| transaction.js            | 100     | 100      | 100     | 100     |

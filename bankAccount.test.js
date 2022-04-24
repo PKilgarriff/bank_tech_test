@@ -1,11 +1,19 @@
 const BankAccount = require("./bankAccount");
 const StatementPrinter = require("./statementPrinter");
+const Transaction = require("./transaction");
 jest.mock("./statementPrinter");
+// jest.mock("./transaction");
 
 describe("BankAccount", () => {
   let account;
   beforeEach(() => {
     account = new BankAccount();
+    jest.spyOn(Transaction, "constructor").mockImplementation((amount) => {
+      return {
+        date: "Today",
+        amount: amount,
+      };
+    });
   });
 
   test("has an initial balance of zero", () => {
@@ -66,13 +74,21 @@ describe("BankAccount", () => {
       }).toThrow("You cannot withdraw a non-numerical amount");
     });
   });
-  describe.skip("printStatement", () => {
+  describe("printStatement", () => {
     test("it calls the statement method of StatementPrinter with the current transactions", () => {
+      jest.spyOn(console, "log").mockImplementation(() => {});
       account.deposit(92);
       account.withdraw(15);
       account.printStatement();
-      expect(StatementPrinter.statement).toHaveBeenCalledWith(
-        account.transactions
+      expect(StatementPrinter.statement).toBeCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({
+            amount: 92,
+          }),
+          expect.objectContaining({
+            amount: -15,
+          }),
+        ])
       );
     });
   });
