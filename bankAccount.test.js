@@ -11,9 +11,6 @@ describe("BankAccount", () => {
   test("has an initial balance of zero", () => {
     expect(account.balance()).toEqual(0);
   });
-  test.skip("starts with no transaction history", () => {
-    expect(account.transactions).toEqual([]);
-  });
   describe("deposit", () => {
     test("after depositing 1000, the balance is 1000", () => {
       account.deposit(1000);
@@ -22,6 +19,15 @@ describe("BankAccount", () => {
     test("after depositing 350, the balance is 350", () => {
       account.deposit(350);
       expect(account.balance()).toEqual(350);
+    });
+    test("after depositing 175, then 804, the balance is 979", () => {
+      account.deposit(175);
+      account.deposit(804);
+      expect(account.balance()).toEqual(979);
+    });
+    test("can handle floats", () => {
+      account.deposit(18.65);
+      expect(account.balance()).toEqual(18.65);
     });
     test("throws an error if attempting to deposit a negative amount", () => {
       expect(() => {
@@ -45,6 +51,10 @@ describe("BankAccount", () => {
       account.withdraw(600);
       expect(account.balance()).toEqual(150);
     });
+    test("you can go into negative balance while withdrawing", () => {
+      account.withdraw(600);
+      expect(account.balance()).toEqual(-600);
+    });
     test("throws an error if attempting to withdraw a negative amount", () => {
       expect(() => {
         account.withdraw(-350);
@@ -54,22 +64,6 @@ describe("BankAccount", () => {
       expect(() => {
         account.withdraw("all the money you have");
       }).toThrow("You cannot withdraw a non-numerical amount");
-    });
-  });
-  describe("transactions", () => {
-    test.skip("after a deposit, there is a record of the transaction stored", () => {
-      account.deposit(92, new Date(Date.UTC(2022, 3, 22, 0)));
-      expect(account.transactions).toContainEqual({
-        date: new Date("2022-04-22T00:00:00.000Z"),
-        amount: 92,
-      });
-    });
-    test.skip("after a withdrawal, there is a record of the transaction stored", () => {
-      account.withdraw(156, new Date(Date.UTC(2022, 4, 14, 0)));
-      expect(account.transactions).toContainEqual({
-        date: new Date("2022-05-14T00:00:00.000Z"),
-        amount: -156,
-      });
     });
   });
   describe.skip("printStatement", () => {

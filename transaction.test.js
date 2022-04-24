@@ -7,7 +7,7 @@ describe("Transaction", () => {
     jest
       .spyOn(global, "Date")
       .mockImplementationOnce(() => new Date("2022-01-17T11:00:00.000Z"));
-    transaction = new Transaction(300, new Date());
+    transaction = new Transaction(300);
   });
 
   test("stores an amount", () => {
@@ -16,6 +16,15 @@ describe("Transaction", () => {
   test("stores a date", () => {
     expect(transaction.date).toStrictEqual(
       new Date("2022-01-17T11:00:00.000Z")
+    );
+  });
+  test("date can be overridden at construction", () => {
+    const newDateTransaction = new Transaction(
+      700,
+      new Date("2021-12-25T11:00:00.000Z")
+    );
+    expect(newDateTransaction.date).toStrictEqual(
+      new Date("2021-12-25T11:00:00.000Z")
     );
   });
   describe("once constructed, the properties are frozen", () => {
