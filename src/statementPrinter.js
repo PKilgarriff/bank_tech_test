@@ -1,8 +1,8 @@
 class StatementPrinter {
+  static headerString = "date || credit || debit || balance";
   static statement(transactions) {
-    const headerString = "date || credit || debit || balance";
     if (typeof transactions === "undefined" || transactions.length === 0)
-      return headerString;
+      return this.headerString;
 
     this.#sortByDateAscending(transactions);
 
@@ -14,7 +14,7 @@ class StatementPrinter {
       return this.#generateTransactionString(transaction, balance);
     });
 
-    statementStrings.reverse().unshift(headerString);
+    statementStrings.reverse().unshift(this.headerString);
     return statementStrings.join("\n");
   }
 
