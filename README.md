@@ -21,10 +21,11 @@ A set of acceptance criteria have been provided, and these are demonstrated in t
 
 - JavaScript - chosen programming language
 - Node.js - JS runtime environment
-- Jest - testing both unit and feature tests
+- Jest - testing both unit and feature tests, as well as coverage
 - ESLint - linting
 - GitHub - version control
 - GitHub Actions - Continuous Integration
+- jest-date-mock - mocking global Date object for tests
 
 ## Set-up
 
@@ -94,14 +95,14 @@ If you wish to see the verbose output from Jest, run `jest --verbose`, or you ca
 
 ## Approach
 
-The program is made up of four classes:
+The program is made up of three classes:
 
-- a BankAccount class that handles the deposit and withdrawal while maintaining the balance
+- a BankAccount class that handles the deposit and withdrawal
   - instances are created for separate accounts
 - a Transaction class that stores the record of each transaction
 - a StatementPrinter class that handles the generation of a bank statement for output to terminal
   - the class methods are available for use as no data needs to be stored, and so no instances are required
-- a StatementPrinterHelper class that provides static methods for formatting strings into the required output
+  - the class is able to calculate the balance for each transaction at runtime
 
 This structure is to adhere to separation of concerns.
 
@@ -123,12 +124,10 @@ This structure is to adhere to separation of concerns.
   - test behaviour over state
 - Received coach feedback
   - implemented further changes
-
-## Next Steps
-
-- ~clarify with client how they would want negative balances handled~ -> Throw error
-- ~revisit possibility of a Transaction class to encapsulate further~
-- ~redesign bankAccount.test.js to test behaviour instead of state _without_ losing test specificity~
+  - further adhered to SRP
+  - made code more readable by changing method names
+  - kept to specification by removing unrequested methods
+  - avoided hard dependencies with dependency injection
 
 # Appendix
 

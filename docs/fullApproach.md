@@ -45,3 +45,12 @@
   - made transactions property of BankAccount private
 - Date objects mocked for new Transaction class and Feature tests
 - Submitted for coach review
+  - feedback received:
+    - Rearrange Folder Structure
+    - remove interfaces not in specification
+    - Throw error if withdrawal would take account balance negative
+    - Sort Feature test (not an integration test)
+    - calculate balance at runtime of statement() from transaction history
+    - Un-couple BankAccount, Transaction, and StatementPrinter classes (Dependency Injection)
+    - Separate statement class into methods with SRP
+    - rename methods for clarity
