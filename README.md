@@ -86,9 +86,8 @@ Uncaught 'You cannot withdraw more money than your account currently has'
 There are npm scripts setup to test and lint the program
 
 ```bash
-npm run test # Run linter then tests
-npm run test:unit # Run tests by themselves
-npm run test:coverage # Run tests with Jest's coverage checker
+npm run test # Run linter then tests (with coverage checker)
+npm run test:unit # Run tests (with coverage checker)
 ```
 
 If you wish to see the verbose output from Jest, run `jest --verbose`, or you can see the current verbose output [here](./docs/testOutput.md). The test coverage table is [here](#coverage).
