@@ -4,31 +4,27 @@ class StatementPrinter {
     if (typeof transactions === "undefined" || transactions.length === 0)
       return headerString;
 
-    let cumulativeBalance = 0;
-    let statementStrings = [];
     this.#sortByDateAscending(transactions);
 
-    transactions.forEach((transaction) => {
-      let localTransaction = {
-        date: transaction.date,
-        amount: transaction.amount,
-      };
-      cumulativeBalance += transaction.amount;
-      localTransaction.balance = cumulativeBalance;
-      statementStrings.push(this.#generateTransactionString(localTransaction));
+    let statementStrings = transactions.map((transaction) => {
+      let balance = this.#balanceUpToThisTransaction(
+        transactions,
+        transaction.date
+      );
+      return this.#generateTransactionString(transaction, balance);
     });
 
     statementStrings.reverse().unshift(headerString);
     return statementStrings.join("\n");
   }
 
-  static #generateTransactionString(transaction) {
+  static #generateTransactionString(transaction, balance) {
     let amount = `${this.#amountToTwoDecimalPlaces(
       Math.abs(transaction.amount)
     )}`;
     amount = transaction.amount > 0 ? amount + " ||" : "|| " + amount;
     let date = `${this.#dateToDDMMYYYY(transaction.date)}`;
-    let balance = `${this.#amountToTwoDecimalPlaces(transaction.balance)}`;
+    balance = `${this.#amountToTwoDecimalPlaces(balance)}`;
     return `${date} || ${amount} || ${balance}`;
   }
 
@@ -41,6 +37,15 @@ class StatementPrinter {
     let month = `${date.getMonth() + 1}`.padStart(2, "0");
     let year = date.getFullYear();
     return `${day}/${month}/${year}`;
+  }
+
+  static #balanceUpToThisTransaction(transactions, currentTransactionDate) {
+    return transactions
+      .filter((record) => {
+        return record.date <= currentTransactionDate;
+      })
+      .map((transaction) => transaction.amount)
+      .reduce((a, b) => a + b);
   }
 
   static #amountToTwoDecimalPlaces(amount) {

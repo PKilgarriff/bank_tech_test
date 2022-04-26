@@ -11,17 +11,6 @@ class BankAccount {
     this.#printer = printer;
   }
 
-  #balance() {
-    return this.#transactions
-      .map((transaction) => transaction.amount)
-      .reduce(
-        (previous, current) => {
-          return previous + current;
-        },
-        0 // Initial value
-      );
-  }
-
   deposit(amount) {
     this.#errorHandler("deposit", amount);
     this.#transactions.push(new this.#transactionClass(amount));
@@ -45,6 +34,17 @@ class BankAccount {
     if (transactionType === "withdraw" && amount > this.#balance()) {
       throw `You cannot ${transactionType} more money than your account currently has`;
     }
+  }
+
+  #balance() {
+    return this.#transactions
+      .map((transaction) => transaction.amount)
+      .reduce(
+        (previous, current) => {
+          return previous + current;
+        },
+        0 // Initial value
+      );
   }
 }
 
