@@ -13,7 +13,9 @@ The requirements are as follows:
 - clients can print a bank statement
 - data can be kept in memory (not stored in a file, or in a database)
 
-A set of acceptance criteria have been provided, and these are demonstrated in one of the feature tests, showing the desired function of the program.
+A set of acceptance criteria have been provided, and these are demonstrated in the image below, and in one of the feature tests, showing the desired function of the program.
+
+![Acceptance Run](./docs/images/acceptance_criteria.png)
 
 ## Technologies
 
@@ -49,8 +51,12 @@ This program is run within node as a REPL.
 
 Only the bankAccount.js file needs to be loaded in node as it requires the statementPrinter.js file inside it.
 
-```
+```zsh
+cd src
 node
+```
+
+```node
 .load ./bankAccount.js
 const client1 = new BankAccount();
 client1.deposit(480);
@@ -101,7 +107,9 @@ This structure is to adhere to separation of concerns.
 
 ### TL;DR
 
-- Wrote a design document
+[Full Approach](./docs/fullApproach.md) is available here.
+
+- Wrote a [design document](./design.md)
 - Test-drove the classes
   - Used Red-Green-Commit-Refactor-Commit loop
 - When they were sufficiently functional, required StatementPrinter within BankAccount
@@ -113,53 +121,8 @@ This structure is to adhere to separation of concerns.
 - Brought in changes that resulted:
   - further encapsulation
   - test behaviour over state
-
-### Full Approach
-
-- Created a [design document](./design.md) to make notes on the brief
-  - laid out initial plan for overall design
-- Used Jest to test-drive the creation of a BankAccount class
-- After recent external review, aimed for a Red-Green-Commit-Refactor-Commit loop in the process
-- returned to design document and client brief as required to clarify and update thoughts on approach
-- Made choice that balances can become negative
-  - no specific instructions or demonstration in the acceptance criteria for this case
-  - in a real-world test this would have been a point to return to client and clarify
-  - laid out possible options in design document, in case this needs to be revisited
-- Moved on to StatementPrinter class once the BankAccount class was able to store transactions, and allow withdrawing/depositing
-- Decision was made early on in design document that this would be a separate class in order to adhere more closely to Single Responsibility Principle (SRP)
-- Continued to use Jest to test-drive implementation of StatementPrinter class
-- Once unit tests were passing and covering the responsibilities of the StatementPrinter class, this was integrated into the BankAccount class
-  - mocked using Jest mocks in the unit tests
-  - not mocked for the feature tests
-- this exposed further requirements to meet the criteria
-  - statement printed dates from most recent to least recent
-  - the calculation of balance needed to be adjusted as a result
-- Linting was brought in to catch any syntax errors and bad practices
-- Continued refactoring the code to remove unnecessary variables
-  - selected variables left in to aid the readability of the code
-  - methods extracted to continue with SRP
-  - methods that could be made private, made private
-    - unsure whether the transactions property of BankAccount should be private
-      - pro: stops it being accessed outside
-      - con: unavailable to unit testing BankAccount, alternatives could give false positives
-- Further feature tests added
-  - exposed blind spot in Jest mocking
-    - console.log spy was passing subsequent tests due to using .toHaveBeenCalled() instead of .toHaveBeenLAstCalled()
-- The existence of Continuous Integration remembered by me at this point
-  - config files for Travis and GitHub Actions added
-  - Travis CI currently blocked, so focused on GitHub actions
-  - CI exposed issue with toLocaleString() used by StatementPrinter
-    - flips months and days
-    - local tests run with en-gb -> remote tests using en-us
-- dateFormatter updated to no longer use toLocaleString()
-- Readme pushed to GitHub for code review
-- Self-assessment form carried out:
-  - highlighted possible areas for further encapsulation
-  - made me return to the consideration of a Transaction class
-  - retry testing approach (Behaviour over State)
-  - mock Date objects
-  - made transactions property of BankAccount private
-- Date objects mocked for new Transaction class and Feature tests
+- Received coach feedback
+  - implemented further changes
 
 ## Next Steps
 
@@ -222,10 +185,9 @@ Ran all test suites.
 
 ### Coverage
 
-| File                      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s |
-| ------------------------- | ------- | -------- | ------- | ------- | ----------------- |
-| All files                 | 100     | 100      | 100     | 100     |
-| bankAccount.js            | 100     | 100      | 100     | 100     |
-| statementPrinter.js       | 100     | 100      | 100     | 100     |
-| statementPrinterHelper.js | 100     | 100      | 100     | 100     |
-| transaction.js            | 100     | 100      | 100     | 100     |
+| File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s |
+| ------------------- | ------- | -------- | ------- | ------- | ----------------- |
+| All files           | 100     | 100      | 100     | 100     |
+| bankAccount.js      | 100     | 100      | 100     | 100     |
+| statementPrinter.js | 100     | 100      | 100     | 100     |
+| transaction.js      | 100     | 100      | 100     | 100     |
