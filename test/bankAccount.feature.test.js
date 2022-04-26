@@ -1,11 +1,13 @@
 const BankAccount = require("../src/bankAccount");
 const dateMock = require("jest-date-mock");
 
-describe("Integration Test for BankAccount", () => {
+describe("Feature Test for BankAccount", () => {
   let consoleSpy;
+  let client1;
 
   beforeEach(() => {
     consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+    client1 = new BankAccount();
   });
 
   afterAll(() => {
@@ -13,7 +15,6 @@ describe("Integration Test for BankAccount", () => {
   });
 
   test("It fulfills the example acceptance criteria", () => {
-    const client1 = new BankAccount();
     dateMock.advanceTo(new Date(2023, 0, 10, 0, 0, 0));
     client1.deposit(1000);
     dateMock.advanceTo(new Date(2023, 0, 13, 0, 0, 0));
@@ -29,7 +30,6 @@ describe("Integration Test for BankAccount", () => {
     );
   });
   test("It handles transactions made out of order", () => {
-    const client1 = new BankAccount();
     dateMock.advanceTo(new Date(2023, 0, 5, 0, 0, 0));
     client1.deposit(1800);
     dateMock.advanceTo(new Date(2023, 2, 13, 0, 0, 0));
