@@ -3,13 +3,14 @@ const Transaction = require("./transaction");
 
 class BankAccount {
   #transactions;
-  constructor() {
+  #transactionClass;
+  constructor(transaction = Transaction, printer = StatementPrinter) {
     this.#transactions = [];
-    this.transactionClass = Transaction;
-    this.printer = StatementPrinter;
+    this.#transactionClass = transaction;
+    this.printer = printer;
   }
 
-  balance() {
+  #balance() {
     return this.#transactions
       .map((transaction) => transaction.amount)
       .reduce(
@@ -22,12 +23,12 @@ class BankAccount {
 
   deposit(amount) {
     this.#errorHandler("deposit", amount);
-    this.#transactions.push(new Transaction(amount));
+    this.#transactions.push(new this.#transactionClass(amount));
   }
 
   withdraw(amount) {
     this.#errorHandler("withdraw", amount);
-    this.#transactions.push(new Transaction(amount * -1));
+    this.#transactions.push(new this.#transactionClass(amount * -1));
   }
 
   printStatement() {
@@ -39,6 +40,9 @@ class BankAccount {
       throw `You cannot ${transactionType} a negative amount`;
     } else if (typeof amount !== "number") {
       throw `You cannot ${transactionType} a non-numerical amount`;
+    }
+    if (transactionType === "withdraw" && amount > this.#balance()) {
+      throw `You cannot ${transactionType} more money than your account currently has`;
     }
   }
 }
