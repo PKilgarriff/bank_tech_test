@@ -1,4 +1,4 @@
-const BankAccount = require("./bankAccount");
+const BankAccount = require("../src/bankAccount");
 const dateMock = require("jest-date-mock");
 
 describe("Integration Test for BankAccount", () => {

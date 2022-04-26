@@ -1,4 +1,4 @@
-const Transaction = require("./transaction");
+const Transaction = require("../src/transaction");
 const dateMock = require("jest-date-mock");
 
 describe("Transaction", () => {

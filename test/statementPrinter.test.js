@@ -1,4 +1,4 @@
-const StatementPrinter = require("./statementPrinter");
+const StatementPrinter = require("../src/statementPrinter");
 
 describe("StatementPrinter", () => {
   test("it prints headers when given no transactions", () => {

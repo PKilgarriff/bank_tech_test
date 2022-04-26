@@ -1,8 +1,7 @@
-const BankAccount = require("./bankAccount");
-const StatementPrinter = require("./statementPrinter");
-const Transaction = require("./transaction");
-jest.mock("./statementPrinter");
-// jest.mock("./transaction");
+const BankAccount = require("../src/bankAccount");
+const StatementPrinter = require("../src/statementPrinter");
+const Transaction = require("../src/transaction");
+jest.mock("../src/statementPrinter");
 
 describe("BankAccount", () => {
   let account;
