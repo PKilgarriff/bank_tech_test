@@ -4,10 +4,11 @@ const Transaction = require("./transaction");
 class BankAccount {
   #transactions;
   #transactionClass;
+  #printer;
   constructor(transaction = Transaction, printer = StatementPrinter) {
     this.#transactions = [];
     this.#transactionClass = transaction;
-    this.printer = printer;
+    this.#printer = printer;
   }
 
   #balance() {
@@ -32,7 +33,7 @@ class BankAccount {
   }
 
   printStatement() {
-    console.log(this.printer.statement(this.#transactions));
+    console.log(this.#printer.statement(this.#transactions));
   }
 
   #errorHandler(transactionType, amount) {

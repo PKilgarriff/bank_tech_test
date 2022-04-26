@@ -62,8 +62,6 @@ const client1 = new BankAccount();
 client1.deposit(480);
 client1.deposit(935);
 client1.withdraw(650);
-client1.balance();
-    765
 client1.printStatement();
     date || credit || debit || balance
     23/04/2022 || || 650.00 || 765.00
@@ -78,6 +76,8 @@ Explanatory errors will be thrown if either a deposit or a withdrawal is attempt
 Uncaught 'You cannot deposit a non-numerical amount'
 > client1.withdraw(-100000);
 Uncaught 'You cannot withdraw a negative amount'
+> client1.withdraw(10);
+Uncaught 'You cannot withdraw more money than your account currently has'
 ```
 
 ### Test Program
@@ -90,7 +90,7 @@ npm run test:unit # Run tests by themselves
 npm run test:coverage # Run tests with Jest's coverage checker
 ```
 
-If you wish to see the verbose output from Jest, run `jest --verbose`, or you can see the current verbose output [here](#verbose-test-output). The test coverage table is [here](#coverage).
+If you wish to see the verbose output from Jest, run `jest --verbose`, or you can see the current verbose output [here](./docs/testOutput.md). The test coverage table is [here](#coverage).
 
 ## Approach
 
@@ -126,62 +126,11 @@ This structure is to adhere to separation of concerns.
 
 ## Next Steps
 
-- clarify with client how they would want negative balances handled
+- ~clarify with client how they would want negative balances handled~ -> Throw error
 - ~revisit possibility of a Transaction class to encapsulate further~
 - ~redesign bankAccount.test.js to test behaviour instead of state _without_ losing test specificity~
 
 # Appendix
-
-## Verbose Test Output
-
-```
-PASS  ./bankAccount.test.js
-  BankAccount
-    ✓ has an initial balance of zero (3 ms)
-    deposit
-      ✓ after depositing 1000, the balance is 1000 (1 ms)
-      ✓ after depositing 350, the balance is 350 (1 ms)
-      ✓ after depositing 175, then 804, the balance is 979 (1 ms)
-      ✓ can handle floats (1 ms)
-      ✓ throws an error if attempting to deposit a negative amount (1 ms)
-      ✓ throws an error if attempting to deposit a non-number (1 ms)
-    withdraw
-      ✓ after depositing 1000, then withdrawing 500, the balance is 500
-      ✓ after depositing 750, then withdrawing 600, the balance is 150 (1 ms)
-      ✓ you can go into negative balance while withdrawing (1 ms)
-      ✓ throws an error if attempting to withdraw a negative amount (1 ms)
-      ✓ throws an error if attempting to withdraw a non-number (1 ms)
-    printStatement
-      ✓ it calls the statement method of StatementPrinter with the current transactions (2 ms)
-
-PASS  ./integration.test.js
-  Integration Test for BankAccount
-    ✓ It fulfills the example acceptance criteria (4 ms)
-    ✓ It handles transactions made out of order
-
-PASS  ./statementPrinter.test.js
-  StatementPrinter
-    ✓ it prints headers when given no transactions (2 ms)
-    ✓ correct statement when given an array of one credit transaction (1 ms)
-    ✓ correct statement when given an array of one debit transaction
-    ✓ correct statement when given an array of multiple transactions (1 ms)
-    ✓ correct statement when given an array of incorrectly ordered transactions
-
-PASS  ./transaction.test.js
-  Transaction
-    ✓ stores an amount (1 ms)
-    ✓ stores a date
-    ✓ date can be overridden at construction (1 ms)
-    once constructed, the properties are frozen
-      ✓ for amount
-      ✓ for date
-
-Test Suites: 4 passed, 4 total
-Tests:       25 passed, 25 total
-Snapshots:   0 total
-Time:        0.571 s, estimated 1 s
-Ran all test suites.
-```
 
 ### Coverage
 
